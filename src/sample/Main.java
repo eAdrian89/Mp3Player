@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("test.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Mp3PlayerGUI.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 644, 253));
         primaryStage.show();
     }
 
