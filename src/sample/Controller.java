@@ -14,8 +14,11 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,19 +61,21 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        songs = new ArrayList<File>();
-        directory = new File("C:\\Users\\Adrian\\IdeaProjects\\eAdrian89\\Mp3Player\\src\\sample\\music");
-        files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                songs.add(file);
-                System.out.println(file);
-            }
-        }
-        media = new Media(songs.get(songNumber).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        songTitle.setText(songs.get(songNumber).getName());
 
+/*
+            songs = new ArrayList<File>();
+            directory = new File("C:\\Users\\Adrian\\IdeaProjects\\eAdrian89\\Mp3Player\\src\\sample\\music");
+            files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    songs.add(file);
+                    System.out.println(file);
+                }
+            }
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            songTitle.setText(songs.get(songNumber).getName());
+*/
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -126,6 +131,7 @@ public class Controller implements Initializable {
     public void stopMedia() {
         progressBar.setProgress(0);
         mediaPlayer.stop();
+        cancelTimer();
     }
 
     public void nextMedia() {
@@ -163,8 +169,38 @@ public class Controller implements Initializable {
     }
 
     public void libraryMedia() {
-    }
 
+
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Open Mp3 File");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
+        chooser.setFileFilter(filter);
+
+        int returnVal = chooser.showOpenDialog(chooser.getParent());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+
+
+            songs = new ArrayList<File>();
+            directory = chooser.getCurrentDirectory();
+            files = directory.listFiles();
+            System.out.println(files);
+            if (files != null) {
+                for (File file : files) {
+                    songs.add(file);
+                    System.out.println(file);
+
+                    media = new Media(songs.get(songNumber).toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                    songTitle.setText(songs.get(songNumber).getName());
+                    playMedia();
+
+                }
+
+            }
+        }
+    }
     public void playlistMedia() {
     }
 
