@@ -13,9 +13,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Mp3PlayerGUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Mp3PlayerGUIv2.fxml"));
         primaryStage.setTitle("Mp3Player by Adrian Wojcik");
-        primaryStage.setScene(new Scene(root, 644, 253));
+        primaryStage.setScene(new Scene(root, 644, 250));
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

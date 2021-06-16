@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="449.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <AnchorPane prefHeight="251.0" prefWidth="644.0">
+         <children>
+            <AnchorPane prefHeight="253.0" prefWidth="644.0" style="-fx-background-color: #2F4F4F; -fx-background-radius: 2;">
+               <children>
+                  <Pane layoutX="434.0" prefHeight="74.0" prefWidth="210.0" style="-fx-background-color: #00008B; -fx-background-radius: 1em;">
+                     <children>
+                        <Label contentDisplay="RIGHT" layoutX="84.0" prefHeight="32.0" prefWidth="120.0" text="Mp3 Player" textAlignment="CENTER" textFill="#fffefe">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="95.0" layoutY="28.0" text="by Adrian Wojcik" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                     </children>
+                  </Pane>
+                  <ButtonBar layoutX="14.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="previousButton" fx:id="previousImage" onMouseClicked="#previousMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_skip_previous_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="62.0" layoutY="173.0" onMouseClicked="#playMedia">
+                     <buttons>
+                        <ImageView id="playButton" fx:id="playImage" onMouseClicked="#playMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_play_arrow_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="110.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="pauseButton" fx:id="pauseImage" onMouseClicked="#pauseMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_pause_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="158.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="stopButton" fx:id="stopImage" onMouseClicked="#stopMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_stop_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="206.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="nextButton" fx:id="nextImage" onMouseClicked="#nextMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_skip_next_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="434.0" layoutY="79.0">
+                     <buttons>
+                        <ImageView id="muteButton" fx:id="muteImage" onMouseClicked="#muteMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_volume_off_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="491.0" layoutY="79.0" />
+                  <ButtonBar layoutX="545.0" layoutY="79.0" />
+                  <ButtonBar layoutX="491.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="libraryButton" fx:id="libraryImage" onMouseClicked="#libraryMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_library_music_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="545.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="playlistButton" fx:id="playlistImage" onMouseClicked="#playlistMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_playlist_add_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="298.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="repateButton" fx:id="repateImage" onMouseClicked="#repeatMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_repeat_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="346.0" layoutY="173.0">
+                     <buttons>
+                        <ImageView id="shuffleButton" fx:id="shuffleImage" onMouseClicked="#shuffleMedia">
+                           <image>
+                              <Image url="file:/C:\Users\Adrian\IdeaProjects\eAdrian89\Mp3Player\src\sample\icons\baseline_shuffle_black_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="151.0" prefHeight="11.0" prefWidth="232.0" progress="0.0" style="-fx-background-color: #00008B; -fx-background-radius: 3em;" />
+                  <Label fx:id="songTitle" layoutX="14.0" layoutY="103.0" prefHeight="30.0" prefWidth="232.0" text="Now Playing" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Slider id="volumeSlider" fx:id="volumeSlider" blockIncrement="25.0" layoutX="492.0" layoutY="91.0" max="150.0" value="75.0">
+                     <cursor>
+                        <Cursor fx:constant="W_RESIZE" />
+                     </cursor>
+                  </Slider>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Pane layoutY="-2.0" prefHeight="203.0" prefWidth="644.0" style="-fx-background-color: #00008B; -fx-background-radius: 1em;">
+               <children>
+                  <Label fx:id="playList" layoutX="6.0" layoutY="14.0" prefHeight="179.0" prefWidth="636.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

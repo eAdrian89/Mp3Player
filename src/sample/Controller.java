@@ -3,28 +3,23 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Controller implements Initializable {
 
@@ -38,7 +33,7 @@ public class Controller implements Initializable {
     @FXML
     private Pane pane;
     @FXML
-    private Label label, songTitle;
+    private Label label, songTitle, playList;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -80,7 +75,7 @@ public class Controller implements Initializable {
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                mediaPlayer.setVolume(volumeSlider.getValue()*0.01);
+                mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
             }
         });
 
@@ -92,7 +87,7 @@ public class Controller implements Initializable {
             songNumber--;
             mediaPlayer.stop();
 
-            if(running){
+            if (running) {
                 cancelTimer();
             }
 
@@ -100,11 +95,10 @@ public class Controller implements Initializable {
             mediaPlayer = new MediaPlayer(media);
             songTitle.setText(songs.get(songNumber).getName());
             playMedia();
-        }
-        else{
-            songNumber = songs.size()-1;
+        } else {
+            songNumber = songs.size() - 1;
             mediaPlayer.stop();
-            if(running){
+            if (running) {
                 cancelTimer();
             }
 
@@ -118,7 +112,7 @@ public class Controller implements Initializable {
 
     public void playMedia() {
         beginTimer();
-        mediaPlayer.setVolume(volumeSlider.getValue()*0.01);
+        mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
         mediaPlayer.play();
     }
 
@@ -138,7 +132,7 @@ public class Controller implements Initializable {
         if (songNumber < songs.size() - 1) {
             songNumber++;
             mediaPlayer.stop();
-            if(running){
+            if (running) {
                 cancelTimer();
             }
 
@@ -146,11 +140,10 @@ public class Controller implements Initializable {
             mediaPlayer = new MediaPlayer(media);
             songTitle.setText(songs.get(songNumber).getName());
             playMedia();
-        }
-        else{
+        } else {
             songNumber = 0;
             mediaPlayer.stop();
-            if(running){
+            if (running) {
                 cancelTimer();
             }
 
@@ -170,8 +163,69 @@ public class Controller implements Initializable {
 
     public void libraryMedia() {
 
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Open Mp3 File");
+        chooser.setMultiSelectionEnabled(true);
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(chooser.getParent());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            ArrayList<File> songs = new ArrayList<>(Arrays.asList(chooser.getSelectedFiles()));
+            //List<File[]> songs = new ArrayList<>();
+           // songs.add(chooser.getSelectedFiles());
+
+            //  if(songs.size() == 1){
+            //     File file = chooser.getSelectedFile();
+            //     String title = file.toURI().toString();
+            //     media = new Media(title);
+            //     mediaPlayer = new MediaPlayer(media);
+            //     songTitle.setText(file.getName());
+            //    playMedia();
+
+             } else if (songs.size() > 1) {
+
+            files = (File[]) songs.toArray();
+            System.out.println(files);
+            if (files != null) {
+                for (File file : files) {
+                    songs.add(file);
+                    System.out.println(file);
+
+                    media = new Media(songs.get(songNumber).toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                    songTitle.setText(songs.get(songNumber).getName());
+                    playMedia();
+                }
 
 
+         /*
+           // files = directory.listFiles();
+           // System.out.println(files);
+            if (files != null) {
+                for (File file : files) {
+                    songs.add(file);
+                    System.out.println(file);
+
+                    media = new Media(songs.get(songNumber).toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                    songTitle.setText(songs.get(songNumber).getName());
+                    playMedia();
+                }
+*/
+/*
+            File file = chooser.getSelectedFile();
+            String title = file.toURI().toString();
+            media = new Media(title);
+            mediaPlayer = new MediaPlayer(media);
+            songTitle.setText(file.getName());
+            playMedia();
+/*
+        }
+
+
+/*
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Open Mp3 File");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
@@ -199,15 +253,55 @@ public class Controller implements Initializable {
                 }
 
             }
+        }*/
+                }
+            }
         }
-    }
+   // }
     public void playlistMedia() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Open Mp3 File");
+        chooser.setMultiSelectionEnabled(true);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
+        chooser.setFileFilter(filter);
+
+        int returnVal = chooser.showOpenDialog(chooser.getParent());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+
+
+            songs = new ArrayList<File>();
+            directory = chooser.getCurrentDirectory();
+            files = directory.listFiles();
+            System.out.println(files);
+            if (files != null) {
+                for (File file : files) {
+                    songs.add(file);
+                    System.out.println(file);
+
+                    media = new Media(songs.get(songNumber).toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                    songTitle.setText(songs.get(songNumber).getName());
+                    playMedia();
+
+                }
+
+            }
+        }
+
     }
 
-    public void muteMedia() {
+    public void muteMedia(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 1) {
+            mediaPlayer.setMute(true);
+        }
+        if (mouseEvent.getClickCount() == 2) {
+            mediaPlayer.setMute(false);
+        }
+
     }
 
-    public void beginTimer(){
+    public void beginTimer() {
 
         timer = new Timer();
         task = new TimerTask() {
@@ -217,10 +311,10 @@ public class Controller implements Initializable {
                 running = true;
                 double current = mediaPlayer.getCurrentTime().toSeconds();
                 double end = media.getDuration().toSeconds();
-                System.out.println(current/end);
-                progressBar.setProgress(current/end);
+                System.out.println(current / end);
+                progressBar.setProgress(current / end);
 
-                if(current/end == 1){
+                if (current / end == 1) {
                     cancelTimer();
                 }
             }
@@ -228,13 +322,11 @@ public class Controller implements Initializable {
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
-    public void cancelTimer(){
+    public void cancelTimer() {
         running = false;
         timer.cancel();
+
     }
 
-   public void setVolume(){
-
-   }
 
 }
