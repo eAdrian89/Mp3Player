@@ -46,9 +46,9 @@ public class Controller implements Initializable {
     private File directory;
     private File[] files;
 
-    private ArrayList<File> songs;
+    private ArrayList<File> songs = new ArrayList<File>();
 
-    private int songNumber;
+    private int songNumber = 0;
 
     private Timer timer;
     private TimerTask task;
@@ -57,21 +57,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-/*
-            songs = new ArrayList<File>();
-            directory = new File("C:\\Users\\Adrian\\IdeaProjects\\eAdrian89\\Mp3Player\\src\\sample\\music");
-            files = directory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    songs.add(file);
-                    System.out.println(file);
-                }
-            }
-            media = new Media(songs.get(songNumber).toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            songTitle.setText(songs.get(songNumber).getName());
-*/
-
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -79,6 +64,27 @@ public class Controller implements Initializable {
             }
         });
 
+    }
+
+    public void libraryMedia() {
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Open Mp3 File");
+        chooser.setMultiSelectionEnabled(true);
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(chooser.getParent());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            songs = new ArrayList<>(Arrays.asList(chooser.getSelectedFiles()));
+            System.out.println(songs.size());
+            System.out.println(songs.toString());
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            songTitle.setText(songs.get(songNumber).getName());
+            playMedia();
+        }
 
     }
 
@@ -129,7 +135,7 @@ public class Controller implements Initializable {
     }
 
     public void nextMedia() {
-        if (songNumber < songs.size() - 1) {
+        if (songNumber < songs.size() + 1) {
             songNumber++;
             mediaPlayer.stop();
             if (running) {
@@ -155,141 +161,13 @@ public class Controller implements Initializable {
     }
 
     public void repeatMedia() {
-
+        //TODO
     }
 
     public void shuffleMedia() {
+        //TODO
     }
 
-    public void libraryMedia() {
-
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Open Mp3 File");
-        chooser.setMultiSelectionEnabled(true);
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(chooser.getParent());
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-            ArrayList<File> songs = new ArrayList<>(Arrays.asList(chooser.getSelectedFiles()));
-            //List<File[]> songs = new ArrayList<>();
-           // songs.add(chooser.getSelectedFiles());
-
-            //  if(songs.size() == 1){
-            //     File file = chooser.getSelectedFile();
-            //     String title = file.toURI().toString();
-            //     media = new Media(title);
-            //     mediaPlayer = new MediaPlayer(media);
-            //     songTitle.setText(file.getName());
-            //    playMedia();
-
-             } else if (songs.size() > 1) {
-
-            files = (File[]) songs.toArray();
-            System.out.println(files);
-            if (files != null) {
-                for (File file : files) {
-                    songs.add(file);
-                    System.out.println(file);
-
-                    media = new Media(songs.get(songNumber).toURI().toString());
-                    mediaPlayer = new MediaPlayer(media);
-                    songTitle.setText(songs.get(songNumber).getName());
-                    playMedia();
-                }
-
-
-         /*
-           // files = directory.listFiles();
-           // System.out.println(files);
-            if (files != null) {
-                for (File file : files) {
-                    songs.add(file);
-                    System.out.println(file);
-
-                    media = new Media(songs.get(songNumber).toURI().toString());
-                    mediaPlayer = new MediaPlayer(media);
-                    songTitle.setText(songs.get(songNumber).getName());
-                    playMedia();
-                }
-*/
-/*
-            File file = chooser.getSelectedFile();
-            String title = file.toURI().toString();
-            media = new Media(title);
-            mediaPlayer = new MediaPlayer(media);
-            songTitle.setText(file.getName());
-            playMedia();
-/*
-        }
-
-
-/*
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Open Mp3 File");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
-        chooser.setFileFilter(filter);
-
-        int returnVal = chooser.showOpenDialog(chooser.getParent());
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-
-
-            songs = new ArrayList<File>();
-            directory = chooser.getCurrentDirectory();
-            files = directory.listFiles();
-            System.out.println(files);
-            if (files != null) {
-                for (File file : files) {
-                    songs.add(file);
-                    System.out.println(file);
-
-                    media = new Media(songs.get(songNumber).toURI().toString());
-                    mediaPlayer = new MediaPlayer(media);
-                    songTitle.setText(songs.get(songNumber).getName());
-                    playMedia();
-
-                }
-
-            }
-        }*/
-                }
-            }
-        }
-   // }
-    public void playlistMedia() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Open Mp3 File");
-        chooser.setMultiSelectionEnabled(true);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Mp3 File", "mp3");
-        chooser.setFileFilter(filter);
-
-        int returnVal = chooser.showOpenDialog(chooser.getParent());
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-
-
-            songs = new ArrayList<File>();
-            directory = chooser.getCurrentDirectory();
-            files = directory.listFiles();
-            System.out.println(files);
-            if (files != null) {
-                for (File file : files) {
-                    songs.add(file);
-                    System.out.println(file);
-
-                    media = new Media(songs.get(songNumber).toURI().toString());
-                    mediaPlayer = new MediaPlayer(media);
-                    songTitle.setText(songs.get(songNumber).getName());
-                    playMedia();
-
-                }
-
-            }
-        }
-
-    }
 
     public void muteMedia(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1) {
